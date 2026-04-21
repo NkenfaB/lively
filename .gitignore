@@ -25,3 +25,32 @@ reports/logs/*
 !reports/figures/.gitkeep
 !reports/tables/.gitkeep
 !reports/logs/.gitkeep
+
+# Virtual env
+.venv/
+
+# Raw datasets
+data/raw/coswara/
+data/raw/coughvid/
+
+# Processed arrays / large artifacts
+data/processed/features/
+*.npy
+
+# Logs
+*.log
+download_log.txt
+preprocessing_log.txt
+training_log.txt
+
+# Backups
+backups/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Large model artifacts
+models/checkpoints/*.keras
+models/exported/*.tflite
+*.backup

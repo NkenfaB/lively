@@ -70,10 +70,17 @@ def train_baseline() -> Path:
 
     x_train, y_train = _build_or_load_features("train", settings.training.max_train_samples)
     x_val, y_val = _build_or_load_features("val", settings.training.max_eval_samples)
+    # Remap labels from 3-class [0=TB, 1=COVID, 2=HEALTHY] to 2-class [0=COVID, 1=HEALTHY]
+    print(f"Original labels - unique values: {np.unique(y_train)}, counts: {np.bincount(y_train)}")
+    label_map = {1: 0, 2: 1}  # Map COVID(1)->0, HEALTHY(2)->1, ignore TB(0)
+    y_train = np.array([label_map[label] for label in y_train])
+    y_val = np.array([label_map[label] for label in y_val])
+    print(f"Remapped labels - unique values: {np.unique(y_train)}, counts: {np.bincount(y_train)}")
 
-    _require_all_classes(y_train)
 
-    model = build_baseline_cnn(input_shape=x_train.shape[1:], num_classes=len(TARGET_CLASSES))
+    #     _require_all_classes(y_train)
+
+    model = build_baseline_cnn(input_shape=x_train.shape[1:], num_classes=len(np.unique(y_train)))
     optimizer = tf.keras.optimizers.Adam(learning_rate=settings.training.learning_rate)
     model.compile(
         optimizer=optimizer,

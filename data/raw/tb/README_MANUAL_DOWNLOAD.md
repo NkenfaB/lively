@@ -26,5 +26,5 @@ This dataset is not downloaded automatically by the project scaffold.
 
 ## Expected Result
 
-Place the extracted dataset contents inside `/Users/tm/projects/thesis-cough-screening/data/raw/tb`.
+Place the extracted dataset contents inside `/workspace/lively/data/raw/tb`.
 The downstream scripts will detect the files automatically if metadata and audio files are present.
