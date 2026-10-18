@@ -42,7 +42,7 @@ The current scope uses:
 - TB-negative participants,
 - other non-target controls that are compatible with the source dataset documentation.
 
-This improves practicality, but it is also a scientific limitation because mixed controls are not equivalent to a strictly healthy population. That limitation is documented in [src/config/label_schema.py](/Users/tm/projects/thesis-cough-screening/src/config/label_schema.py).
+This improves practicality, but it is also a scientific limitation because mixed controls are not equivalent to a strictly healthy population. That limitation is documented in [src/config/label_schema.py](src/config/label_schema.py).
 
 ## Folder Structure
 
@@ -64,22 +64,38 @@ thesis-cough-screening/
 
 ## Setup
 
-Use Python `3.10` or `3.11`.
+Use Python `3.10` or `3.11`. Clone the repository first:
 
 ```bash
-cd ~/projects/thesis-cough-screening
-python3 -m venv .venv
+git clone https://github.com/NkenfaB/lively.git
+cd lively
+python3.11 -m venv .venv
 source .venv/bin/activate
 pip install --upgrade pip
 pip install -r requirements.txt
 python -m ipykernel install --user --name thesis-cough-screening
 ```
 
-Or run:
+Or, from the cloned repository, run:
 
 ```bash
-bash scripts/setup_env.sh
+PYTHON_BIN=python3.11 bash scripts/setup_env.sh
 ```
+
+## Run the automated checks
+
+From the repository root, with the virtual environment active:
+
+```bash
+python -m pytest -q
+```
+
+The existing tests check label mapping, project-directory setup and an audio-loading round trip using a generated tone. They do not require downloading datasets or training a model, and do not establish model accuracy or clinical validity.
+
+## Related repositories
+
+- [Lively mobile app](https://github.com/NkenfaB/lively_app)
+- [Lively website](https://github.com/NkenfaB/lively_website)
 
 ## Dataset Acquisition
 
@@ -114,7 +130,7 @@ This dataset is treated as manual / controlled access. The pipeline will:
 
 ## Label Strategy
 
-The target schema is defined in [src/config/label_schema.py](/Users/tm/projects/thesis-cough-screening/src/config/label_schema.py).
+The target schema is defined in [src/config/label_schema.py](src/config/label_schema.py).
 
 High-level rules:
 
@@ -126,7 +142,7 @@ High-level rules:
 
 ## Pipeline Execution Order
 
-1. Create and activate a virtual environment.
+1. Create and activate a virtual environment in the cloned repository.
 2. Install dependencies.
 3. Run dataset acquisition.
 4. Audit dataset metadata.
@@ -156,11 +172,11 @@ High-level rules:
 
 ## Exact Next Commands
 
-Run these in order:
+Run these from the parent directory of your cloned `lively` folder. If the setup steps above are already complete, activate `.venv` and start with the download command.
 
 ```bash
-cd ~/projects/thesis-cough-screening
-python3 -m venv .venv
+cd lively
+python3.11 -m venv .venv
 source .venv/bin/activate
 pip install --upgrade pip
 pip install -r requirements.txt
@@ -172,4 +188,4 @@ bash scripts/run_evaluation.sh
 python -m src.export.export_tflite --checkpoint models/checkpoints/baseline_cnn.keras --output models/exported/baseline_cnn.tflite
 ```
 
-If the TB dataset is still missing, complete the manual download steps in [README_MANUAL_DOWNLOAD.md](/Users/tm/projects/thesis-cough-screening/data/raw/tb/README_MANUAL_DOWNLOAD.md) before expecting a true 3-class training run.
+If the TB dataset is still missing, complete the manual download steps in [README_MANUAL_DOWNLOAD.md](data/raw/tb/README_MANUAL_DOWNLOAD.md) before expecting a true 3-class training run.
